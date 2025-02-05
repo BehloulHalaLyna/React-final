@@ -7,7 +7,7 @@ const Leaderboard = () => {
 
   useEffect(() => {
     const storedScores = JSON.parse(localStorage.getItem("leaderboard")) || [];
-    console.log("📊 Scores récupérés :", storedScores); // Debug pour voir les scores
+    console.log("📊 Scores récupérés :", storedScores); 
     setScores(storedScores);
   }, []);
 
@@ -40,7 +40,7 @@ const Leaderboard = () => {
                 scores.map((score, index) => (
                   <tr key={index}>
                     <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{score.playerName || "Joueur"}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{score.playerName || "Joueur Anonyme"}</td>
                     <td className="px-6 py-4 whitespace-nowrap font-bold">{score.score}</td>
                     <td className="px-6 py-4 whitespace-nowrap capitalize">
                       {score.difficulty === 'easy' ? 'Facile' :

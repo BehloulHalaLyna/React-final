@@ -8,7 +8,7 @@ import { useQuiz } from '../context/QuizContext';
 export const Quiz = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { category, difficulty } = location.state || {};
+  const { category, difficulty, playerName } = location.state || {}; 
   const { 
     currentQuestion, 
     setCurrentQuestion, 
@@ -20,6 +20,7 @@ export const Quiz = () => {
 
   const [userAnswers, setUserAnswers] = useState([]);
   const [scoreSaved, setScoreSaved] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(15); // ⏳ Timer de 15 secondes par question
 
   const { data: questions, isLoading, error } = useQuery({
     queryKey: ['questions', category, difficulty],
@@ -34,16 +35,26 @@ export const Quiz = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (timeLeft === 0) {
+      handleNextQuestion(""); // Passe à la question suivante si le temps est écoulé
+    }
+    const timer = setInterval(() => {
+      setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    
+    return () => clearInterval(timer); // Nettoie le timer à chaque changement de question
+  }, [timeLeft]);
+
   if (isLoading) return <div>Chargement des questions...</div>;
   if (error) return <div>Erreur: {error.message}</div>;
   if (!questions) return null;
 
-  // Fonction pour enregistrer le score dans le localStorage
   const saveScore = () => {
-    if (scoreSaved) return; 
+    if (scoreSaved) return;
 
     const newEntry = {
-      playerName: "Joueur",
+      playerName: playerName || "Joueur Anonyme", 
       score,
       difficulty,
       date: new Date().toISOString(),
@@ -51,7 +62,7 @@ export const Quiz = () => {
 
     const scores = JSON.parse(localStorage.getItem("leaderboard")) || [];
     scores.push(newEntry);
-    scores.sort((a, b) => b.score - a.score); // Trie par score décroissant
+    scores.sort((a, b) => b.score - a.score); 
     localStorage.setItem("leaderboard", JSON.stringify(scores));
 
     console.log("🔥 Score enregistré :", newEntry);
@@ -62,6 +73,7 @@ export const Quiz = () => {
 
   const handleNextQuestion = (selectedAnswer) => {
     setUserAnswers((prev) => [...prev, selectedAnswer]);
+    setTimeLeft(15); // ⏳ Reset le timer pour la prochaine question
 
     if (currentQuestion + 1 < questions.length) {
       setCurrentQuestion(prev => prev + 1);
@@ -109,6 +121,7 @@ export const Quiz = () => {
           Question {currentQuestion + 1} sur {questions.length}
         </p>
         <p className="text-lg">Score: {score}</p>
+        <p className="text-lg font-bold text-red-500">⏳ Temps restant : {timeLeft} sec</p>
       </div>
       
       <Question
