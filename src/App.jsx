@@ -4,7 +4,7 @@ import { QuizProvider } from './context/QuizContext';
 import { Home } from './pages/Home';
 import { Quiz } from './pages/Quiz';
 import { Results } from './pages/Results';
-import { Leaderboard } from './pages/Leaderboard';
+import  Leaderboard  from './pages/Leaderboard';
 import Answers from './pages/Answers';
 
 const queryClient = new QueryClient();

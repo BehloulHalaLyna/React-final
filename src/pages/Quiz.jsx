@@ -38,7 +38,7 @@ export const Quiz = () => {
   if (error) return <div>Erreur: {error.message}</div>;
   if (!questions) return null;
 
-  // Fonction pour enregistrer le score et classement
+  // Fonction pour enregistrer le score dans le localStorage
   const saveScore = () => {
     if (scoreSaved) return; 
 
@@ -51,8 +51,11 @@ export const Quiz = () => {
 
     const scores = JSON.parse(localStorage.getItem("leaderboard")) || [];
     scores.push(newEntry);
-    scores.sort((a, b) => b.score - a.score);
+    scores.sort((a, b) => b.score - a.score); // Trie par score décroissant
     localStorage.setItem("leaderboard", JSON.stringify(scores));
+
+    console.log("🔥 Score enregistré :", newEntry);
+    console.log("📊 Classement mis à jour :", scores);
 
     setScoreSaved(true);
   };
