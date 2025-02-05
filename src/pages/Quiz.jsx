@@ -20,7 +20,7 @@ export const Quiz = () => {
 
   const [userAnswers, setUserAnswers] = useState([]);
   const [scoreSaved, setScoreSaved] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(15); // ⏳ Timer de 15 secondes par question
+  const [timeLeft, setTimeLeft] = useState(15); 
 
   const { data: questions, isLoading, error } = useQuery({
     queryKey: ['questions', category, difficulty],
@@ -37,13 +37,13 @@ export const Quiz = () => {
 
   useEffect(() => {
     if (timeLeft === 0) {
-      handleNextQuestion(""); // Passe à la question suivante si le temps est écoulé
+      handleNextQuestion(""); 
     }
     const timer = setInterval(() => {
       setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
     }, 1000);
     
-    return () => clearInterval(timer); // Nettoie le timer à chaque changement de question
+    return () => clearInterval(timer); 
   }, [timeLeft]);
 
   if (isLoading) return <div className="text-center text-cyan-400">Chargement des questions...</div>;
@@ -73,7 +73,7 @@ export const Quiz = () => {
 
   const handleNextQuestion = (selectedAnswer) => {
     setUserAnswers((prev) => [...prev, selectedAnswer]);
-    setTimeLeft(15); // ⏳ Reset le timer pour la prochaine question
+    setTimeLeft(15); 
 
     if (currentQuestion + 1 < questions.length) {
       setCurrentQuestion(prev => prev + 1);
