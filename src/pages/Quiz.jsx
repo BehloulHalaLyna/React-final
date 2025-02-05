@@ -54,7 +54,7 @@ export const Quiz = () => {
     if (scoreSaved) return;
 
     const newEntry = {
-      playerName: playerName || "Joueur", 
+      playerName: playerName || "Joueur 1", 
       score,
       difficulty,
       date: new Date().toISOString(),
