@@ -19,24 +19,26 @@ export const Results = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md text-center">
-      <h1 className="text-2xl font-bold mb-4">Quiz Terminé!</h1>
-      <p className="text-xl mb-2">Félicitations, {playerName}!</p>
-      <p className="text-xl mb-6">Votre score final: {score}</p>
-      
-      <div className="space-y-3">
-        <button
-          onClick={handleSaveScore}
-          className="w-full bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600"
-        >
-          Sauvegarder le Score & Voir le Classement
-        </button>
-        <button
-          onClick={handlePlayAgain}
-          className="w-full bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
-        >
-          Rejouer
-        </button>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black p-6">
+      <div className="max-w-md w-full bg-opacity-10 backdrop-blur-lg border border-gray-600 p-8 rounded-2xl shadow-2xl text-white text-center">
+        <h1 className="text-4xl font-extrabold text-cyan-400 mb-4">Quiz Terminé!</h1>
+        <p className="text-2xl mb-2">Félicitations, {playerName}!</p>
+        <p className="text-xl mb-6 text-cyan-300">Votre score final: {score}</p>
+        
+        <div className="space-y-4">
+          <button
+            onClick={handleSaveScore}
+            className="w-full px-6 py-3 bg-green-500 text-black font-bold text-lg rounded-lg shadow-lg hover:bg-green-600 transition-transform transform hover:scale-105"
+          >
+            Sauvegarder le Score & Voir le Classement
+          </button>
+          <button
+            onClick={handlePlayAgain}
+            className="w-full px-6 py-3 bg-cyan-500 text-black font-bold text-lg rounded-lg shadow-lg hover:bg-cyan-600 transition-transform transform hover:scale-105"
+          >
+            Rejouer
+          </button>
+        </div>
       </div>
     </div>
   );

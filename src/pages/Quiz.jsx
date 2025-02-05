@@ -46,8 +46,8 @@ export const Quiz = () => {
     return () => clearInterval(timer); // Nettoie le timer à chaque changement de question
   }, [timeLeft]);
 
-  if (isLoading) return <div>Chargement des questions...</div>;
-  if (error) return <div>Erreur: {error.message}</div>;
+  if (isLoading) return <div className="text-center text-cyan-400">Chargement des questions...</div>;
+  if (error) return <div className="text-center text-red-500">Erreur: {error.message}</div>;
   if (!questions) return null;
 
   const saveScore = () => {
@@ -87,48 +87,49 @@ export const Quiz = () => {
     saveScore();
 
     return (
-      <div className="container mx-auto px-4 py-8 text-center">
-        <h2 className="text-4xl font-bold mb-6">🎉 Quiz Terminé !</h2>
-        <p className="text-2xl mb-4">🏆 Score Final: <span className="font-bold text-blue-600">{score} / {questions.length}</span></p>
-        <div className="flex justify-center gap-4 mt-6">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black p-6">
+        <div className="max-w-4xl w-full bg-opacity-10 backdrop-blur-lg border border-gray-600 p-8 rounded-2xl shadow-2xl text-white text-center">
+          <h2 className="text-4xl font-extrabold text-cyan-400">🎉 Quiz Terminé !</h2>
+          <p className="text-2xl mb-4">🏆 Score Final: <span className="font-bold text-cyan-300">{score} / {questions.length}</span></p>
+          <div className="flex justify-center gap-4 mt-6">
           <button
-            onClick={() => navigate("/answers", { state: { questions, userAnswers } })}
-            className="px-5 py-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600"
-          >
-            📜 Voir les Réponses
-          </button>
-          <button
-            onClick={() => navigate("/leaderboard")}
-            className="px-5 py-3 bg-yellow-500 text-white rounded-lg shadow-md hover:bg-yellow-600"
-          >
-            🏅 Voir Classement
-          </button>
-          <button
-            onClick={() => navigate("/")}
-            className="px-5 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700"
-          >
-            🔄 Rejouer
-          </button>
+              onClick={() => navigate("/answers", { state: { questions, userAnswers } })}
+              className="px-5 py-3 bg-green-500 text-black font-bold text-lg rounded-lg shadow-lg hover:bg-green-600 transition-transform transform hover:scale-105"
+            >
+              📜 Voir les Réponses
+            </button>
+            <button
+              onClick={() => navigate("/leaderboard")}
+              className="px-5 py-3 bg-yellow-500 text-black font-bold text-lg rounded-lg shadow-lg hover:bg-yellow-600 transition-transform transform hover:scale-105"
+            >
+              🏅 Voir Classement
+            </button>
+            <button
+              onClick={() => navigate("/")}
+              className="px-5 py-3 bg-cyan-500 text-black font-bold text-lg rounded-lg shadow-lg hover:bg-cyan-600 transition-transform transform hover:scale-105"
+            >
+              🔄 Rejouer
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-4 text-center">
-        <p className="text-lg">
-          Question {currentQuestion + 1} sur {questions.length}
-        </p>
-        <p className="text-lg">Score: {score}</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black p-6">
+      <div className="max-w-4xl w-full bg-opacity-10 backdrop-blur-lg border border-gray-600 p-8 rounded-2xl shadow-2xl text-white text-center">
+        <p className="text-lg text-cyan-400">Question {currentQuestion + 1} sur {questions.length}</p>
+        <p className="text-lg text-cyan-300">Score: {score}</p>
         <p className="text-lg font-bold text-red-500">⏳ Temps restant : {timeLeft} sec</p>
+        
+        <Question
+          key={currentQuestion}
+          question={questions[currentQuestion]}
+          onNextQuestion={handleNextQuestion}
+        />
       </div>
-      
-      <Question
-        key={currentQuestion}
-        question={questions[currentQuestion]}
-        onNextQuestion={handleNextQuestion}
-      />
     </div>
+    
   );
 };

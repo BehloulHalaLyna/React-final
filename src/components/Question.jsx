@@ -39,15 +39,15 @@ export const Question = ({ question, onNextQuestion }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">{he.decode(question.question)}</h2>
-      <div className="space-y-3">
+    <div className="max-w-2xl mx-auto p-6 bg-opacity-10 backdrop-blur-lg border border-gray-600 rounded-2xl shadow-2xl text-white">
+      <h2 className="text-2xl font-bold text-cyan-400 mb-6 text-center">{he.decode(question.question)}</h2>
+      <div className="space-y-4">
         {shuffledAnswers.map((answer, index) => (
           <button
             key={index}
             onClick={() => handleAnswer(answer)}
             disabled={isAnswered}
-            className={`w-full p-3 text-white rounded-lg transition-colors ${getButtonClass(answer)}`}
+            className={`w-full p-4 text-lg font-semibold text-white rounded-lg transition-transform transform hover:scale-105 ${getButtonClass(answer)}`}
           >
             {he.decode(answer)}
           </button>
