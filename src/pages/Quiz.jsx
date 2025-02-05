@@ -54,7 +54,7 @@ export const Quiz = () => {
     if (scoreSaved) return;
 
     const newEntry = {
-      playerName: playerName || "Joueur Anonyme", 
+      playerName: playerName || "Joueur", 
       score,
       difficulty,
       date: new Date().toISOString(),
@@ -93,7 +93,7 @@ export const Quiz = () => {
           <p className="text-2xl mb-4">🏆 Score Final: <span className="font-bold text-cyan-300">{score} / {questions.length}</span></p>
           <div className="flex justify-center gap-4 mt-6">
           <button
-              onClick={() => navigate("/answers", { state: { questions, userAnswers } })}
+              onClick={() => navigate("/answers", { state: { questions} })}
               className="px-5 py-3 bg-green-500 text-black font-bold text-lg rounded-lg shadow-lg hover:bg-green-600 transition-transform transform hover:scale-105"
             >
               📜 Voir les Réponses

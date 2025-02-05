@@ -40,7 +40,7 @@ const Leaderboard = () => {
                 scores.map((score, index) => (
                   <tr key={index} className="bg-gray-800 text-white">
                     <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{score.playerName || "Joueur Anonyme"}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{score.playerName || "Joueur"}</td>
                     <td className="px-6 py-4 whitespace-nowrap font-bold text-cyan-400">{score.score}</td>
                     <td className="px-6 py-4 whitespace-nowrap capitalize">
                       {score.difficulty === 'easy' ? 'Facile' :
